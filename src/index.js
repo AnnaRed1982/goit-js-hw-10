@@ -21,7 +21,9 @@ inputREF.addEventListener(
   _debounce(() => {
     console.log(inputREF.value);
     fetchCountries(inputREF.value)
-      .then((countries)=>renderCountryList(countries))
+      .then(countries => {
+        renderCountryList(countries);
+      })
       .catch(error => {
         console.log(error);
       });
@@ -41,4 +43,16 @@ function fetchCountries(name) {
     .then(data => {
       // Data handling
     });
+}
+function renderCountryList(countries) {
+  const markup = countries
+    .map(country => {
+      return `<li>
+          <p>${country.name.official}</p>
+          <p>${country.capital}</p>
+          <p>${country.population}</p>
+        </li>`;
+    })
+    .join('');
+  countryList.innerHTML = markup;
 }
