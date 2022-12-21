@@ -1,24 +1,44 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
-var debounce = require('lodash.debounce');
+var _debounce = require('lodash.debounce');
 
 const DEBOUNCE_DELAY = 300;
 
-function fetchCountries(name) {
-  //     fetch(https://restcountries.com/v3.1/name/{name}
-  // https://restcountries.com/v3.1/name/peru
-  // https://restcountries.com/v3.1/name/united)
-  //     https://restcountries.com/v2/{service}?fields={field},{field},{field}
-  // https://restcountries.com/v2/all?fields=name,capital,currencies
-}
+//     fetch(https://restcountries.com/v3.1/name/{name}
+// https://restcountries.com/v3.1/name/peru
+// https://restcountries.com/v3.1/name/united)
+//     https://restcountries.com/v2/{service}?fields={field},{field},{field}
+// https://restcountries.com/v2/all?fields=name,capital,currencies
 
 const inputREF = document.querySelector('#search-box');
-inputREF.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
+const countryList = document.querySelector('.country-list');
+const countryInfo = document.querySelector('.country-info');
 
-function onInputSearch() {
-  console.log(inputREF.value);
+const searchParams = new URLSearchParams({});
 
+inputREF.addEventListener(
+  'input',
+  _debounce(() => {
+    console.log(inputREF.value);
+    fetchCountries(inputREF.value)
+      .then((countries)=>renderCountryList(countries))
+      .catch(error => {
+        console.log(error);
+      });
+  }, DEBOUNCE_DELAY)
+);
+
+function fetchCountries(name) {
   fetch(
-    `https://restcountries.com/v3.1/name/${inputREF.value}?fields=name.official,capital,population,flags.svg,languages`
-  );
+    `https://restcountries.com/v3.1/name/${name}?fields=name.official,capital,population,flags.svg,languages`
+  )
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Data handling
+    });
 }
