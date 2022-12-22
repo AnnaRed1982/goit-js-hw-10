@@ -47,6 +47,7 @@ function renderCountryList(countries) {
     return;
   }
   if (countries.length === 1) {
+    countryInfo.innerHTML = '';
     const markup = countries
       .map(country => {
         return `<li>
@@ -60,6 +61,7 @@ function renderCountryList(countries) {
       .join('');
     countryList.innerHTML = markup;
   } else {
+    countryList.innerHTML = '';
     const markup = countries
       .map(country => {
         return `<li>
