@@ -16,52 +16,25 @@ const countryInfo = document.querySelector('.country-info');
 
 const searchParams = new URLSearchParams({});
 
-
-
-fetchCountries('Ukraine');
+fetchCountries('Ukraine')
+  .then(renderCountryList)
+  .catch(error => {
+    console.log(error);
+  });
 
 function fetchCountries(name) {
-  fetch(
+  return fetch(
     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
-  )
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    })
-    .then(countries => {
-      renderCountryList(countries);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  ).then(response => {
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return response.json();
+  });
 }
 
-// inputREF.addEventListener('input', () => {
-//   fetchCountries(inputREF.value)
-//     .then(countries => {
-//       renderCountryList(countries);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// });
+inputREF.addEventListener('input', () => {});
 
-// function fetchCountries(name) {
-//   fetch(
-//     `https://restcountries.com/v3.1/name/${name}?fields=name.official,capital,population,flags.svg,languages`
-//   )
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error(response.status);
-//       }
-//       return response.json();
-//     })
-//     .then(data => {
-//       // Data handling
-//     });
-// }
 function renderCountryList(countries) {
   const markup = countries
     .map(country => {
@@ -70,8 +43,7 @@ function renderCountryList(countries) {
           <p>${country.name.official}</p>
           <p>Capital: ${country.capital}</p>
           <p>Population: ${country.population}</p>
-          <p>Languages: ${country.languages}</p>
-          
+          <p>Languages: ${country.languages}</p>          
         </li>`;
     })
     .join('');
