@@ -56,7 +56,7 @@ function renderCountryList(countries) {
     const markup = countries
       .map(country => {
         return `<div style="display:flex; flex-direction:column; gap:10px;">
-          <div style="display:flex; flex-direction: row; gap:10px; align-items:center; justify-content:center">
+          <div style="display:flex; flex-direction: row; gap:10px; align-items:center;">
           <img src = 
           ${country.flags.svg}
           style= "display:block; height:28px; margin:0"> 
