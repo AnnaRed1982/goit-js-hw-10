@@ -45,11 +45,12 @@ function renderCountryList(countries) {
       'Too many matches found. Please enter a more specific name.'
     );
     return;
-  } else {
+  }
+  if (countries.length === 1) {
     const markup = countries
       .map(country => {
         return `<li>
-      <img src = ${country.flags.svg} width=40> 
+          <img src = ${country.flags.svg} width=40> 
           <p>${country.name.official}</p>
           <p>Capital: ${country.capital}</p>
           <p>Population: ${country.population}</p>
@@ -58,5 +59,15 @@ function renderCountryList(countries) {
       })
       .join('');
     countryList.innerHTML = markup;
+  } else {
+    const markup = countries
+      .map(country => {
+        return `<li>
+          <img src = ${country.flags.svg} width=40> 
+          <p>${country.name.official}</p>                
+        </li>`;
+      })
+      .join('');
+    countryInfo.innerHTML = markup;
   }
 }
