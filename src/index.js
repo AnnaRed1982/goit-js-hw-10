@@ -45,11 +45,13 @@ function renderCountryList(countries) {
     const markup = countries
       .map(country => {
         return `<div>
-          <img src = ${country.flags.svg} width=40> 
+          <img src = 
+          ${country.flags.svg}
+          style= "display: block; height: 20px; width: 30px"> 
           <p>${country.name.official}</p>
           <p>Capital: ${country.capital}</p>
           <p>Population: ${country.population}</p>
-          <p>Languages: ${country.languages}</p>          
+          <p>Languages: ${Object.values(country.languages)}</p>          
         </div>`;
       })
       .join('');
@@ -59,7 +61,7 @@ function renderCountryList(countries) {
     const markup = countries
       .map(country => {
         return `<li style="display:flex; flex-direction: row; gap:10px; align-items:center">
-          <img src = ${country.flags.svg} style= "height: 20px"> 
+          <img src = ${country.flags.svg} style= "display: block; height: 20px; width: 30px"> 
           <p>${country.name.official}</p>                
         </li>`;
       })
