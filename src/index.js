@@ -10,8 +10,9 @@ const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
 bodyREF.style.backgroundImage =
-  'radial-gradient(circle at 1px 1px, grey 1px, transparent 0)';
+  'radial-gradient(#d3d3d3 1px, transparent 0)';
 bodyREF.style.backgroundSize = '40px 40px';
+bodyREF.style.backgroundPosition = '-8px -8px';
 countryInfo.style.display = 'flex';
 countryList.style.paddingLeft = '0';
 
