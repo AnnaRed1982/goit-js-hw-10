@@ -4,14 +4,20 @@ var _debounce = require('lodash.debounce');
 
 const DEBOUNCE_DELAY = 300;
 
+const bodyREF = document.querySelector('body');
 const inputREF = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
+bodyREF.style.backgroundImage =
+  'radial-gradient(circle at 1px 1px, black 1px, transparent 0)';
+bodyREF.style.backgroundSize = '50px 30px';
 countryInfo.style.display = 'flex';
 countryList.style.paddingLeft = '0';
 
-// inputREF.addEventListener('input', (inputREF.style.borderColor = '#1E90FF'));
+inputREF.addEventListener('focus', () => {
+  inputREF.style.outlineColor = '#5E90FA';
+});
 inputREF.addEventListener('input', onInput);
 
 function onInput() {
@@ -19,7 +25,8 @@ function onInput() {
     .then(renderCountryList)
     .catch(error => {
       console.log(error);
-      Notiflix.Notify.failure('Oops, there is no country with that name');
+      Notiflix.Notify.failure(`${error}`);
+      // Notiflix.Notify.failure('Oops, there is no country with that name');
     });
 }
 
@@ -47,16 +54,18 @@ function renderCountryList(countries) {
     countryList.innerHTML = '';
     const markup = countries
       .map(country => {
-        return `<div style="display:flex; flex-direction: column; gap:10px; align-items:center">
+        return `<div style="display:flex; flex-direction:column; gap:10px; align-items:center">
           <div style="display:flex; flex-direction: row; gap:10px; align-items:center">
           <img src = 
           ${country.flags.svg}
-          style= "display: block; height: 20px; width: 30px"> 
+          style= "display: block; width: 30px"> 
           <p>${country.name.official}</p>
           </div>         
-          <p>Capital: ${country.capital}</p>
-          <p>Population: ${country.population}</p>
-          <p>Languages: ${Object.values(country.languages)}</p>          
+          <p style="font-weight:500;">Capital: ${country.capital}</p>
+          <p style="font-weight:500;">Population: ${country.population}</p>
+          <p style="font-weight:500;">Languages: ${Object.values(
+            country.languages
+          )}</p>          
         </div>`;
       })
       .join('');
