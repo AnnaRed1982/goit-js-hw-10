@@ -9,8 +9,8 @@ const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
 countryInfo.style.display = 'flex';
+countryList.style.paddingLeft = '0';
 
-// countryList.style.display = 'flex'
 // inputREF.addEventListener('input', (inputREF.style.borderColor = '#1E90FF'));
 inputREF.addEventListener('input', onInput);
 
@@ -36,6 +36,8 @@ function fetchCountries(name) {
 
 function renderCountryList(countries) {
   if (countries.length > 10) {
+    countryList.innerHTML = '';
+    countryInfo.innerHTML = '';
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
@@ -63,9 +65,9 @@ function renderCountryList(countries) {
     countryInfo.innerHTML = '';
     const markup = countries
       .map(country => {
-        return `<li style="display:flex; flex-direction: row; gap:10px; align-items:center">
-          <img src = ${country.flags.svg} style= "display: block; height: 20px; width: 30px"> 
-          <p>${country.name.official}</p>                
+        return `<li style="display:flex; flex-direction: row; gap:5px; align-items:center; margin:0px">
+          <img src = ${country.flags.svg} style= "display: block; width: 30px"> 
+          <p style="margin:2px; font-weight:500;">${country.name.official}</p>                
         </li>`;
       })
       .join('');
