@@ -16,20 +16,27 @@ const countryInfo = document.querySelector('.country-info');
 
 const searchParams = new URLSearchParams({});
 
-fetch(
-  'https://restcountries.com/v3.1/name/ukrain?fields=name,capital,population,flags,languages'
-)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  })
-  .then(countries => {
-    // Data handling
-    console.log(countries);
-    renderCountryList(countries);
-  });
+
+
+fetchCountries('Ukraine');
+
+function fetchCountries(name) {
+  fetch(
+    `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
+  )
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    })
+    .then(countries => {
+      renderCountryList(countries);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
 
 // inputREF.addEventListener('input', () => {
 //   fetchCountries(inputREF.value)
@@ -61,9 +68,9 @@ function renderCountryList(countries) {
       return `<li>
       <img src = ${country.flags.svg} width=40> 
           <p>${country.name.official}</p>
-          <p>capital: ${country.capital}</p>
-          <p>population: ${country.population}</p>
-          <p>languages: ${country.languages}</p>
+          <p>Capital: ${country.capital}</p>
+          <p>Population: ${country.population}</p>
+          <p>Languages: ${country.languages}</p>
           
         </li>`;
     })
