@@ -16,11 +16,15 @@ const countryInfo = document.querySelector('.country-info');
 
 const searchParams = new URLSearchParams({});
 
-fetchCountries('Ukraine')
-  .then(renderCountryList)
-  .catch(error => {
-    console.log(error);
-  });
+inputREF.addEventListener('input', onInput);
+
+function onInput() {
+  fetchCountries('Ukraine')
+    .then(renderCountryList)
+    .catch(error => {
+      console.log(error);
+    });
+}
 
 function fetchCountries(name) {
   return fetch(
@@ -32,8 +36,6 @@ function fetchCountries(name) {
     return response.json();
   });
 }
-
-inputREF.addEventListener('input', () => {});
 
 function renderCountryList(countries) {
   const markup = countries
