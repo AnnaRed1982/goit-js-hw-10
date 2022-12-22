@@ -59,7 +59,7 @@ function renderCountryList(countries) {
           <div style="display:flex; flex-direction: row; gap:10px; align-items:center; justify-content:center">
           <img src = 
           ${country.flags.svg}
-          style= "display:block; height:22px; margin:0"> 
+          style= "display:block; height:28px; margin:0"> 
           <p style="margin:0; font-weight:700; font-size:32px">
           ${country.name.official}
           </p>
@@ -67,10 +67,10 @@ function renderCountryList(countries) {
           <p style="margin:0"><span style='font-weight:700;'>Capital:</span> 
           ${country.capital}
           </p>
-          <p style="font-weight:500; margin:0">Population: 
+          <p style="margin:0"><span style='font-weight:700;'>Population:</span>  
           ${country.population}
           </p>
-          <p style="font-weight:500;margin:0">Languages:
+          <p style="margin:0"><span style='font-weight:700;'>Languages:</span> 
           ${Object.values(country.languages)}
           </p>          
         </div>`;
