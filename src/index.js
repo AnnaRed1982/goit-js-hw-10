@@ -8,18 +8,13 @@ const inputREF = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
-const searchParams = new URLSearchParams({});
+countryInfo.style.display = 'flex';
+
+// countryList.style.display = 'flex'
 
 inputREF.addEventListener('input', onInput);
 
 function onInput() {
-  //   console.log(inputREF.value.length);
-  //   if (inputREF.value.length > 10) {
-  //     Notiflix.Notify.failure(
-  //       'Too many matches found. Please enter a more specific name.'
-  //     );
-  //     return;
-  //   }
   fetchCountries(inputREF.value)
     .then(renderCountryList)
     .catch(error => {
@@ -39,37 +34,36 @@ function fetchCountries(name) {
 }
 
 function renderCountryList(countries) {
-  console.log(countries);
   if (countries.length > 10) {
-    Notiflix.Notify.failure(
+    Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
     return;
   }
   if (countries.length === 1) {
-    countryInfo.innerHTML = '';
+    countryList.innerHTML = '';
     const markup = countries
       .map(country => {
-        return `<li>
+        return `<div>
           <img src = ${country.flags.svg} width=40> 
           <p>${country.name.official}</p>
           <p>Capital: ${country.capital}</p>
           <p>Population: ${country.population}</p>
           <p>Languages: ${country.languages}</p>          
-        </li>`;
+        </div>`;
       })
       .join('');
-    countryList.innerHTML = markup;
+    countryInfo.innerHTML = markup;
   } else {
-    countryList.innerHTML = '';
+    countryInfo.innerHTML = '';
     const markup = countries
       .map(country => {
-        return `<li>
+        return `<li style="display:flex; flex-direction: row; gap:10px">
           <img src = ${country.flags.svg} width=40> 
           <p>${country.name.official}</p>                
         </li>`;
       })
       .join('');
-    countryInfo.innerHTML = markup;
+    countryList.innerHTML = markup;
   }
 }
