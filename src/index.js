@@ -58,8 +58,8 @@ function renderCountryList(countries) {
     countryInfo.innerHTML = '';
     const markup = countries
       .map(country => {
-        return `<li style="display:flex; flex-direction: row; gap:10px">
-          <img src = ${country.flags.svg} width=40> 
+        return `<li style="display:flex; flex-direction: row; gap:10px; align-items:center">
+          <img src = ${country.flags.svg} style= "height: 20px"> 
           <p>${country.name.official}</p>                
         </li>`;
       })
