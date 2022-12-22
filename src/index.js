@@ -10,13 +10,14 @@ const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
 bodyREF.style.backgroundImage =
-  'radial-gradient(circle at 1px 1px, black 1px, transparent 0)';
-bodyREF.style.backgroundSize = '50px 30px';
+  'radial-gradient(circle at 1px 1px, grey 1px, transparent 0)';
+bodyREF.style.backgroundSize = '40px 40px';
 countryInfo.style.display = 'flex';
 countryList.style.paddingLeft = '0';
 
 inputREF.addEventListener('focus', () => {
-  inputREF.style.outlineColor = '#5E90FA';
+  inputREF.style.outlineColor = 'blue';
+  // inputREF.style.outlineWidth = '0';
 });
 inputREF.addEventListener('input', onInput);
 
@@ -54,18 +55,22 @@ function renderCountryList(countries) {
     countryList.innerHTML = '';
     const markup = countries
       .map(country => {
-        return `<div style="display:flex; flex-direction:column; gap:10px; align-items:center">
+        return `<div style="display:flex; flex-direction:column; gap:10px;">
           <div style="display:flex; flex-direction: row; gap:10px; align-items:center">
           <img src = 
           ${country.flags.svg}
-          style= "display: block; width: 30px"> 
-          <p>${country.name.official}</p>
+          style= "display:block; height:28px; margin:0"> 
+          <p style="margin:0; font-weight:700; font-size:32px">
+          ${country.name.official}
+          </p>
           </div>         
-          <p style="font-weight:500;">Capital: ${country.capital}</p>
-          <p style="font-weight:500;">Population: ${country.population}</p>
-          <p style="font-weight:500;">Languages: ${Object.values(
-            country.languages
-          )}</p>          
+          <p style="font-weight:500; margin:0">Capital: ${country.capital}</p>
+          <p style="font-weight:500; margin:0">Population: 
+          ${country.population}
+          </p>
+          <p style="font-weight:500;margin:0">Languages:
+          ${Object.values(country.languages)}
+          </p>          
         </div>`;
       })
       .join('');
