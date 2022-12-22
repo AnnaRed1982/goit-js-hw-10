@@ -56,15 +56,17 @@ function renderCountryList(countries) {
     const markup = countries
       .map(country => {
         return `<div style="display:flex; flex-direction:column; gap:10px;">
-          <div style="display:flex; flex-direction: row; gap:10px; align-items:center">
+          <div style="display:flex; flex-direction: row; gap:10px; align-items:center; justify-content:center">
           <img src = 
           ${country.flags.svg}
-          style= "display:block; height:28px; margin:0"> 
+          style= "display:block; height:22px; margin:0"> 
           <p style="margin:0; font-weight:700; font-size:32px">
           ${country.name.official}
           </p>
           </div>         
-          <p style="font-weight:500; margin:0">Capital: ${country.capital}</p>
+          <p style="margin:0"><span style='font-weight:700;'>Capital:</span> 
+          ${country.capital}
+          </p>
           <p style="font-weight:500; margin:0">Population: 
           ${country.population}
           </p>
