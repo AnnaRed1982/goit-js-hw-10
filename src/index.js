@@ -4,12 +4,6 @@ var _debounce = require('lodash.debounce');
 
 const DEBOUNCE_DELAY = 300;
 
-//     fetch(https://restcountries.com/v3.1/name/{name}
-// https://restcountries.com/v3.1/name/peru
-// https://restcountries.com/v3.1/name/united)
-//     https://restcountries.com/v2/{service}?fields={field},{field},{field}
-// https://restcountries.com/v2/all?fields=name,capital,currencies
-
 const inputREF = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
@@ -19,7 +13,14 @@ const searchParams = new URLSearchParams({});
 inputREF.addEventListener('input', onInput);
 
 function onInput() {
-  fetchCountries('Ukraine')
+  //   console.log(inputREF.value.length);
+  //   if (inputREF.value.length > 10) {
+  //     Notiflix.Notify.failure(
+  //       'Too many matches found. Please enter a more specific name.'
+  //     );
+  //     return;
+  //   }
+  fetchCountries(inputREF.value)
     .then(renderCountryList)
     .catch(error => {
       console.log(error);
@@ -38,16 +39,24 @@ function fetchCountries(name) {
 }
 
 function renderCountryList(countries) {
-  const markup = countries
-    .map(country => {
-      return `<li>
+  console.log(countries);
+  if (countries.length > 10) {
+    Notiflix.Notify.failure(
+      'Too many matches found. Please enter a more specific name.'
+    );
+    return;
+  } else {
+    const markup = countries
+      .map(country => {
+        return `<li>
       <img src = ${country.flags.svg} width=40> 
           <p>${country.name.official}</p>
           <p>Capital: ${country.capital}</p>
           <p>Population: ${country.population}</p>
           <p>Languages: ${country.languages}</p>          
         </li>`;
-    })
-    .join('');
-  countryList.innerHTML = markup;
+      })
+      .join('');
+    countryList.innerHTML = markup;
+  }
 }
