@@ -16,41 +16,55 @@ const countryInfo = document.querySelector('.country-info');
 
 const searchParams = new URLSearchParams({});
 
-inputREF.addEventListener(
-  'input',
-  _debounce(() => {
-    console.log(inputREF.value);
-    fetchCountries(inputREF.value)
-      .then(countries => {
-        renderCountryList(countries);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, DEBOUNCE_DELAY)
-);
+fetch(
+  'https://restcountries.com/v3.1/name/ukrain?fields=name,capital,population,flags,languages'
+)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return response.json();
+  })
+  .then(countries => {
+    // Data handling
+    console.log(countries);
+    renderCountryList(countries);
+  });
 
-function fetchCountries(name) {
-  fetch(
-    `https://restcountries.com/v3.1/name/${name}?fields=name.official,capital,population,flags.svg,languages`
-  )
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Data handling
-    });
-}
+// inputREF.addEventListener('input', () => {
+//   fetchCountries(inputREF.value)
+//     .then(countries => {
+//       renderCountryList(countries);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// });
+
+// function fetchCountries(name) {
+//   fetch(
+//     `https://restcountries.com/v3.1/name/${name}?fields=name.official,capital,population,flags.svg,languages`
+//   )
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error(response.status);
+//       }
+//       return response.json();
+//     })
+//     .then(data => {
+//       // Data handling
+//     });
+// }
 function renderCountryList(countries) {
   const markup = countries
     .map(country => {
       return `<li>
+      <img src = ${country.flags.svg} width=40> 
           <p>${country.name.official}</p>
-          <p>${country.capital}</p>
-          <p>${country.population}</p>
+          <p>capital: ${country.capital}</p>
+          <p>population: ${country.population}</p>
+          <p>languages: ${country.languages}</p>
+          
         </li>`;
     })
     .join('');
