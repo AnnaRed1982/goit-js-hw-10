@@ -1,4 +1,5 @@
 import './css/styles.css';
+import API from './fetchCountries';
 import Notiflix from 'notiflix';
 var _debounce = require('lodash.debounce');
 
@@ -21,18 +22,9 @@ inputREF.addEventListener('focus', () => {
 inputREF.addEventListener('input', onInput);
 
 function onInput() {
-  fetchCountries(inputREF.value).then(renderCountryList).catch(onCatchError);
-}
-
-function fetchCountries(name) {
-  return fetch(
-    `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
-  ).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
+  API.fetchCountries(inputREF.value)
+    .then(renderCountryList)
+    .catch(onCatchError);
 }
 
 function renderCountryList(countries) {
