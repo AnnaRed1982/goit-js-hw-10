@@ -9,8 +9,7 @@ const inputREF = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
-bodyREF.style.backgroundImage =
-  'radial-gradient(#d3d3d3 1px, transparent 0)';
+bodyREF.style.backgroundImage = 'radial-gradient(#d3d3d3 1px, transparent 0)';
 bodyREF.style.backgroundSize = '40px 40px';
 bodyREF.style.backgroundPosition = '-8px -8px';
 countryInfo.style.display = 'flex';
@@ -27,8 +26,11 @@ function onInput() {
     .then(renderCountryList)
     .catch(error => {
       console.log(error);
-      Notiflix.Notify.failure(`${error}`);
-      // Notiflix.Notify.failure('Oops, there is no country with that name');
+      if ((error = '404')) {
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+        countryList.innerHTML = '';
+        countryInfo.innerHTML = '';
+      } else Notiflix.Notify.failure(`${error}`);
     });
 }
 
