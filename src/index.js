@@ -11,7 +11,6 @@ const countryInfo = document.querySelector('.country-info');
 
 bodyREF.style.backgroundImage = 'radial-gradient(#d3d3d3 1px, transparent 0)';
 bodyREF.style.backgroundSize = '22px 22px';
-bodyREF.style.backgroundPosition = '-8px -8px';
 countryInfo.style.display = 'flex';
 countryList.style.paddingLeft = '0';
 
