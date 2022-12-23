@@ -21,16 +21,7 @@ inputREF.addEventListener('focus', () => {
 inputREF.addEventListener('input', onInput);
 
 function onInput() {
-  fetchCountries(inputREF.value)
-    .then(renderCountryList)
-    .catch(error => {
-      console.log(error);
-      if ((error = '404')) {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-        countryList.innerHTML = '';
-        countryInfo.innerHTML = '';
-      } else Notiflix.Notify.failure(`${error}`);
-    });
+  fetchCountries(inputREF.value).then(renderCountryList).catch(onCatchError);
 }
 
 function fetchCountries(name) {
@@ -91,4 +82,12 @@ function renderCountryList(countries) {
       .join('');
     countryList.innerHTML = markup;
   }
+}
+function onCatchError(error) {
+  console.log(error);
+  if ((error = '404')) {
+    Notiflix.Notify.failure('Oops, there is no country with that name');
+    countryList.innerHTML = '';
+    countryInfo.innerHTML = '';
+  } else Notiflix.Notify.failure(`${error}`);
 }
