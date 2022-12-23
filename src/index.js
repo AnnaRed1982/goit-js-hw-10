@@ -1,7 +1,7 @@
 import './css/styles.css';
 import API from './fetchCountries';
 import Notiflix from 'notiflix';
-var _debounce = require('lodash.debounce');
+var debounce = require('lodash.debounce');
 
 const DEBOUNCE_DELAY = 300;
 
@@ -19,10 +19,10 @@ inputREF.addEventListener('focus', () => {
   inputREF.style.outlineColor = 'blue';
   // inputREF.style.outlineWidth = '0';
 });
-inputREF.addEventListener('input', onInput);
+inputREF.addEventListener('input',debounce(onInput,DEBOUNCE_DELAY));
 
 function onInput() {
-  API.fetchCountries(inputREF.value)
+  API.fetchCountries(inputREF.value.trim())
     .then(renderCountryList)
     .catch(onCatchError);
 }
